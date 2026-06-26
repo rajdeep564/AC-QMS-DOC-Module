@@ -1,0 +1,102 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ProductConfiguration",
+  "type": "object",
+  "required": ["product_code", "product_name"],
+  "properties": {
+    "product_code": { "type": "string", "description": "Unique product identifier e.g. FG00038" },
+    "product_name": { "type": "string" },
+    "reference": { "type": "string", "description": "Pharmacopoeia reference e.g. IP, USP" },
+    "molecular_weight": { "type": "string" },
+    "chemical_formula": { "type": "string" },
+    "specification_no": { "type": "string" },
+    "moa_no": { "type": "string" },
+    "protocol_no": { "type": "string" },
+    "department": { "type": "string", "default": "QUALITY ASSURANCE" },
+    "tests": { "type": "array", "items": { "$ref": "#/definitions/test" } },
+    "additional_tests": { "type": "array", "items": { "$ref": "#/definitions/test" } },
+    "microbiological_tests": { "type": "array", "items": { "$ref": "#/definitions/test" } },
+    "sop_sections": { "type": "array", "items": { "$ref": "#/definitions/sopSection" } },
+    "revision_history": { "type": "array", "items": { "$ref": "#/definitions/revisionEntry" } },
+    "metadata": { "type": "object" }
+  },
+  "definitions": {
+    "acceptanceCriteria": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "enum": ["range", "max", "min", "equals", "text", "nmt", "nlt", "between"]
+        },
+        "min": { "type": "number" },
+        "max": { "type": "number" },
+        "value": {},
+        "unit": { "type": "string" },
+        "display": { "type": "string" }
+      }
+    },
+    "test": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string" },
+        "procedure": { "type": "string" },
+        "acceptance_criteria": {
+          "oneOf": [
+            { "type": "string" },
+            { "$ref": "#/definitions/acceptanceCriteria" }
+          ]
+        },
+        "instruments": { "type": "array", "items": { "type": "string" } },
+        "reagents": { "type": "array", "items": { "type": "string" } },
+        "tables": { "type": "array", "items": { "$ref": "#/definitions/dynamicTable" } },
+        "sub_tests": { "type": "array", "items": { "$ref": "#/definitions/test" } }
+      }
+    },
+    "dynamicTable": {
+      "type": "object",
+      "required": ["columns", "rows"],
+      "properties": {
+        "table_name": { "type": "string" },
+        "columns": { "type": "array", "items": { "type": "string" } },
+        "rows": { "type": "array", "items": { "type": "array" } },
+        "merges": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "row_start": { "type": "integer" },
+              "row_end": { "type": "integer" },
+              "col_start": { "type": "integer" },
+              "col_end": { "type": "integer" }
+            }
+          }
+        }
+      }
+    },
+    "sopSection": {
+      "type": "object",
+      "required": ["title"],
+      "properties": {
+        "title": { "type": "string" },
+        "content": {
+          "oneOf": [
+            { "type": "string" },
+            { "type": "array", "items": { "type": "string" } }
+          ]
+        },
+        "subsections": { "type": "array", "items": { "$ref": "#/definitions/sopSection" } }
+      }
+    },
+    "revisionEntry": {
+      "type": "object",
+      "required": ["document_no", "revision_made", "effective_date"],
+      "properties": {
+        "document_no": { "type": "string" },
+        "revision_made": { "type": "string" },
+        "change_control_no": { "type": "string" },
+        "effective_date": { "type": "string" }
+      }
+    }
+  }
+}

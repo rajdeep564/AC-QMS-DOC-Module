@@ -1,0 +1,39 @@
+{
+  "product_code": "FG00045",
+  "product_name": "Magnesium Aspartate",
+  "reference": "In-house",
+  "molecular_weight": "324.5",
+  "chemical_formula": "C8H12MgN2O8",
+  "specification_no": "SPEC/FG00045/01",
+  "moa_no": "MOA/FG00045/01",
+  "protocol_no": "PROT/FG00045/01",
+  "department": "QUALITY ASSURANCE",
+  "tests": [
+    {
+      "name": "Description",
+      "acceptance_criteria": {
+        "type": "equals",
+        "value": "White crystalline powder"
+      }
+    },
+    {
+      "name": "Magnesium content",
+      "acceptance_criteria": {
+        "type": "range",
+        "min": 7.5,
+        "max": 8.5,
+        "unit": "%"
+      }
+    },
+    {
+      "name": "pH",
+      "acceptance_criteria": {
+        "type": "range",
+        "min": 6.0,
+        "max": 8.0
+      }
+    }
+  ],
+  "additional_tests": [],
+  "microbiological_tests": []
+}

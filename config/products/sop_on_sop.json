@@ -1,0 +1,66 @@
+{
+  "product_code": "QA01",
+  "product_name": "SOP ON SOP",
+  "reference": "Internal",
+  "specification_no": null,
+  "moa_no": null,
+  "protocol_no": null,
+  "department": "QUALITY ASSURANCE",
+  "tests": [],
+  "sop_sections": [
+    {
+      "title": "Objective",
+      "content": "To lay down a procedure for the preparation, review/revision and distribution of Standard Operating Procedure."
+    },
+    {
+      "title": "Scope",
+      "content": "This SOP is applicable to prepare, review/revise and distribute standard operating procedure."
+    },
+    {
+      "title": "Responsibility",
+      "content": [
+        "Departmental Designee: To prepare new SOP as per specified format.",
+        "Departmental Head: To review the SOP.",
+        "QA Designee: To control the SOP as per the procedure.",
+        "QA Head: To approve the SOP."
+      ]
+    },
+    {
+      "title": "Accountability",
+      "content": "Concerned departmental head and QA head are accountable for SOP compliance."
+    },
+    {
+      "title": "Procedure",
+      "subsections": [
+        {
+          "title": "All SOP's must be written on A4 size stationary with font size 12 of Roman.",
+          "content": "Page setup: Top 1.0, Bottom 1.0, Left 1.0, Right 1.0, Header 1.0, Footer 0.5 inch."
+        },
+        {
+          "title": "All SOPs shall have the following sub-headings.",
+          "content": "Objective, Scope, Responsibility, Accountability, Procedure, Reference, Format For Reporting, History."
+        },
+        {
+          "title": "Header and Footer of SOP",
+          "content": "Refer Annexure-I for the template of SOP."
+        }
+      ]
+    },
+    {
+      "title": "Reference",
+      "content": "Regulatory guidelines and internal quality manual."
+    },
+    {
+      "title": "History",
+      "content": "Revision details maintained in revision history table."
+    }
+  ],
+  "revision_history": [
+    {
+      "document_no": "QA 01-01",
+      "revision_made": "Initial issue",
+      "change_control_no": "CC-QA-001",
+      "effective_date": "2025-05-21"
+    }
+  ]
+}

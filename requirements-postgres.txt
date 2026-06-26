@@ -1,0 +1,5 @@
+# Optional — only needed when using PostgreSQL in production.
+# Install after core requirements: pip install -r requirements-postgres.txt
+#
+# Use DATABASE_URL=postgresql+psycopg://user:pass@localhost:5432/qms
+psycopg[binary]>=3.2.0

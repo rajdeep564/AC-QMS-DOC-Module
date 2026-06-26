@@ -1,0 +1,49 @@
+{
+  "product_code": "FG00042",
+  "product_name": "Zinc Bisglycinate",
+  "reference": "In-house",
+  "molecular_weight": "321.6",
+  "chemical_formula": "C4H8N2O4Zn",
+  "specification_no": "SPEC/FG00042/01",
+  "moa_no": "MOA/FG00042/01",
+  "protocol_no": "PROT/FG00042/01",
+  "department": "QUALITY ASSURANCE",
+  "tests": [
+    {
+      "name": "Description",
+      "procedure": "Examine sample visually.",
+      "acceptance_criteria": {
+        "type": "equals",
+        "value": "White to off-white powder"
+      }
+    },
+    {
+      "name": "Zinc content",
+      "procedure": "Determine zinc content by complexometric titration or AAS.",
+      "acceptance_criteria": {
+        "type": "range",
+        "min": 28.0,
+        "max": 32.0,
+        "unit": "%"
+      }
+    },
+    {
+      "name": "Loss on drying",
+      "acceptance_criteria": {
+        "type": "nmt",
+        "value": 5.0,
+        "unit": "%"
+      }
+    },
+    {
+      "name": "Heavy metals",
+      "acceptance_criteria": {
+        "type": "nmt",
+        "value": 20,
+        "unit": "ppm"
+      }
+    }
+  ],
+  "additional_tests": [],
+  "microbiological_tests": []
+}

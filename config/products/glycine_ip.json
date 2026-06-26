@@ -1,0 +1,325 @@
+{
+  "product_code": "FG00038",
+  "product_name": "Glycine IP",
+  "reference": "IP",
+  "molecular_weight": "75.1",
+  "chemical_formula": "C2H5NO2",
+  "specification_no": "SPEC/FG00038/01",
+  "moa_no": "MOA/FG00038/01",
+  "protocol_no": "PROT/FG00038/01",
+  "department": "QUALITY ASSURANCE",
+  "metadata": {
+    "product_display_name": "Glycine",
+    "technical_name": "2-aminoethanoic acid.",
+    "composition": "100 %",
+    "origin": "Synthetic",
+    "method_of_production": "Chemical synthesis",
+    "packing_primary": "400 GSM LDPE polybag/liner",
+    "packing_secondary": "HDPE/PAPER/PAPER HDPE BAGS & PAPER /HDPE drums",
+    "shelf_life": "5 years",
+    "storage_conditions": "Preserve in Well-closed container at room temperature.",
+    "special_handling": "N/A",
+    "sampling_plan": "100 %",
+    "retained_sample_quantity": "30 gm",
+    "retained_sample_period": "Expiry + 1 year"
+  },
+  "tests": [
+    {
+      "name": "Description",
+      "procedure": "Take about 1.0 g of sample and spread to clean Petri dish. Check product visually for colour.",
+      "acceptance_criteria": {
+        "type": "equals",
+        "value": "A white, crystalline powder."
+      }
+    },
+    {
+      "name": "Solubility",
+      "procedure": "Take about 1.0 g of sample into 10 ml of water and check solubility.",
+      "acceptance_criteria": {
+        "type": "text",
+        "value": "Freely soluble in water; very slightly soluble in ethanol (95%); practically insoluble in ether."
+      }
+    },
+    {
+      "name": "Identification",
+      "sub_tests": [
+        {
+          "name": "By IR Spectrophotometry",
+          "acceptance_criteria": {
+            "type": "text",
+            "value": "IR spectrum of Glycine sample should be concordant with IR spectrum of Glycine working standard."
+          }
+        },
+        {
+          "name": "By Chemical test",
+          "acceptance_criteria": {
+            "type": "text",
+            "value": "The resulting solution is violet with a greenish yellow fluorescence. After a few minutes the solution becomes orange and then yellow and the intense fluorescence remains."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Appearance of solution",
+      "acceptance_criteria": {
+        "type": "text",
+        "value": "A 10.0% w/v solution in carbon dioxide-free water is clear & not more intensely colored than reference solution YS7."
+      }
+    },
+    {
+      "name": "pH",
+      "acceptance_criteria": {
+        "type": "range",
+        "min": 5.9,
+        "max": 6.3,
+        "display": "5.9 to 6.3"
+      }
+    },
+    {
+      "name": "Chlorides",
+      "acceptance_criteria": {
+        "type": "nmt",
+        "value": 100,
+        "unit": "ppm",
+        "display": "NMT 100 ppm"
+      }
+    },
+    {
+      "name": "Heavy metals",
+      "acceptance_criteria": {
+        "type": "nmt",
+        "value": 10,
+        "unit": "ppm",
+        "display": "NMT 10 ppm"
+      }
+    },
+    {
+      "name": "Sulphated ash",
+      "acceptance_criteria": {
+        "type": "nmt",
+        "value": 0.1,
+        "unit": "%",
+        "display": "NMT 0.1%"
+      }
+    },
+    {
+      "name": "Loss on drying",
+      "acceptance_criteria": {
+        "type": "nmt",
+        "value": 0.5,
+        "unit": "%",
+        "display": "NMT 0.5%"
+      }
+    },
+    {
+      "name": "Assay (On dried basis)",
+      "acceptance_criteria": {
+        "type": "range",
+        "min": 98.5,
+        "max": 101.5,
+        "display": "98.5% to 101.5%"
+      }
+    }
+  ],
+  "additional_tests": [
+    {
+      "name": "Sieve analysis",
+      "acceptance_criteria": {
+        "type": "text",
+        "value": "As per customer requirement"
+      }
+    },
+    {
+      "name": "Bulk Density",
+      "acceptance_criteria": {
+        "type": "text",
+        "value": "As per customer requirement"
+      }
+    },
+    {
+      "name": "Elemental impurities by AAS (As per ICH Q3D)",
+      "sub_tests": [
+        {
+          "name": "Lead (Pb)",
+          "acceptance_criteria": {
+            "type": "text",
+            "value": "Lowest detection limit NMT 0.5 µg/g"
+          }
+        },
+        {
+          "name": "Arsenic (As)",
+          "acceptance_criteria": {
+            "type": "text",
+            "value": "Lowest detection limit NMT 0.5 µg/g"
+          }
+        },
+        {
+          "name": "Mercury (Hg)",
+          "acceptance_criteria": {
+            "type": "text",
+            "value": "Lowest detection limit NMT 0.1 µg/g"
+          }
+        },
+        {
+          "name": "Cadmium (Cd)",
+          "acceptance_criteria": {
+            "type": "text",
+            "value": "Lowest detection limit NMT 0.5 µg/g"
+          }
+        },
+        {
+          "name": "Cobalt (Co)",
+          "acceptance_criteria": {
+            "type": "text",
+            "value": "Lowest detection limit NMT 0.5 µg/g"
+          }
+        },
+        {
+          "name": "Vanadium (V)",
+          "acceptance_criteria": {
+            "type": "text",
+            "value": "Lowest detection limit NMT 0.5 µg/g"
+          }
+        },
+        {
+          "name": "Nickle (Ni)",
+          "acceptance_criteria": {
+            "type": "text",
+            "value": "Lowest detection limit NMT 0.5 µg/g"
+          }
+        },
+        {
+          "name": "Lithium (Li)",
+          "acceptance_criteria": {
+            "type": "text",
+            "value": "Lowest detection limit NMT 0.5 µg/g"
+          }
+        },
+        {
+          "name": "Antimony (Sb)",
+          "acceptance_criteria": {
+            "type": "text",
+            "value": "Lowest detection limit NMT 0.5 µg/g"
+          }
+        },
+        {
+          "name": "Copper (Cu)",
+          "acceptance_criteria": {
+            "type": "text",
+            "value": "Lowest detection limit NMT 0.5 µg/g"
+          }
+        },
+        {
+          "name": "Foreign matter",
+          "acceptance_criteria": {
+            "type": "text",
+            "value": "Should be absent in 5 gm sample"
+          }
+        },
+        {
+          "name": "Ethylene oxide",
+          "acceptance_criteria": {
+            "type": "text",
+            "value": "NMT 0.1 ppm"
+          }
+        },
+        {
+          "name": "OVI/Residual solvent",
+          "acceptance_criteria": {
+            "type": "text",
+            "value": "As per ICH guideline Q3C(R8)"
+          }
+        }
+      ]
+    }
+  ],
+  "microbiological_tests": [
+    {
+      "name": "Bacterial endotoxin test",
+      "acceptance_criteria": {
+        "type": "text",
+        "value": "Lowest detection limit 5 EU/g"
+      }
+    },
+    {
+      "name": "Pathogen in general",
+      "acceptance_criteria": {
+        "type": "text",
+        "value": "Should be absent"
+      }
+    },
+    {
+      "name": "TAMC",
+      "acceptance_criteria": {
+        "type": "nmt",
+        "value": 1000,
+        "unit": "CFU/g",
+        "display": "NMT 10³ CFU/ g"
+      }
+    },
+    {
+      "name": "TYMC",
+      "acceptance_criteria": {
+        "type": "nmt",
+        "value": 100,
+        "unit": "CFU/g",
+        "display": "NMT 10² CFU/ g"
+      }
+    },
+    {
+      "name": "Escherichia coli",
+      "acceptance_criteria": {
+        "type": "text",
+        "value": "Should be absent"
+      }
+    },
+    {
+      "name": "Salmonella",
+      "acceptance_criteria": {
+        "type": "text",
+        "value": "Should be absent"
+      }
+    },
+    {
+      "name": "Pseudomonas aeruginosa",
+      "acceptance_criteria": {
+        "type": "text",
+        "value": "Should be absent"
+      }
+    },
+    {
+      "name": "Staphylococcus aureus",
+      "acceptance_criteria": {
+        "type": "text",
+        "value": "Should be absent"
+      }
+    },
+    {
+      "name": "Coliforms",
+      "acceptance_criteria": {
+        "type": "text",
+        "value": "Should be absent"
+      }
+    }
+  ],
+  "revision_history": [
+    {
+      "document_no": "SPEC/FG00038/01(R-00)",
+      "revision_made": "New specification",
+      "change_control_no": "-------",
+      "effective_date": "2021-04-21"
+    },
+    {
+      "document_no": "SPEC/FG00038/01(R-01)",
+      "revision_made": "Format revised as per revised SOP QC/12.Some contents revised as per FSSAI requirement.",
+      "change_control_no": "CC/2022/003",
+      "effective_date": "2022-06-01"
+    },
+    {
+      "document_no": "SPEC/FG00038/01(R-02)",
+      "revision_made": "Elemental impurity by AAS added. Ethylene oxide test added.",
+      "change_control_no": "CC/2023/010",
+      "effective_date": "2023-06-01"
+    }
+  ]
+}

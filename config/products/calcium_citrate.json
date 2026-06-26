@@ -1,0 +1,48 @@
+{
+  "product_code": "FG00048",
+  "product_name": "Calcium Citrate",
+  "reference": "USP",
+  "molecular_weight": "498.4",
+  "chemical_formula": "C12H10Ca3O14·4H2O",
+  "specification_no": "SPEC/FG00048/01",
+  "moa_no": "MOA/FG00048/01",
+  "protocol_no": "PROT/FG00048/01",
+  "department": "QUALITY ASSURANCE",
+  "tests": [
+    {
+      "name": "Description",
+      "acceptance_criteria": {
+        "type": "equals",
+        "value": "White powder"
+      }
+    },
+    {
+      "name": "Calcium content",
+      "acceptance_criteria": {
+        "type": "range",
+        "min": 20.5,
+        "max": 24.5,
+        "unit": "%"
+      }
+    },
+    {
+      "name": "Loss on drying",
+      "acceptance_criteria": {
+        "type": "nmt",
+        "value": 11.0,
+        "unit": "%"
+      }
+    },
+    {
+      "name": "Assay",
+      "acceptance_criteria": {
+        "type": "range",
+        "min": 97.0,
+        "max": 103.0,
+        "unit": "%"
+      }
+    }
+  ],
+  "additional_tests": [],
+  "microbiological_tests": []
+}

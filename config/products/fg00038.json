@@ -1,0 +1,341 @@
+{
+  "product_code": "FG00038",
+  "product_name": "Glycine IP",
+  "reference": "IP",
+  "molecular_weight": "75.1",
+  "chemical_formula": "C2H5NO2",
+  "specification_no": "SPEC/FG00038/01",
+  "moa_no": "MOA/FG00038/01",
+  "protocol_no": "PROT/FG00038/01",
+  "department": "QUALITY ASSURANCE",
+  "tests": [
+    {
+      "name": "Description",
+      "procedure": "Take about 1.0 g of sample and spread to clean Petri dish. Check product visually for colour.",
+      "acceptance_criteria": {
+        "type": "equals",
+        "min": null,
+        "max": null,
+        "value": "A white, crystalline powder.",
+        "unit": null,
+        "display": null
+      },
+      "instruments": [],
+      "reagents": [],
+      "tables": [],
+      "sub_tests": [],
+      "section_no": null
+    },
+    {
+      "name": "Solubility",
+      "procedure": "Take about 1.0 g of sample into 10 ml of water and check solubility.\nTake about 10 mg of sample into 100 ml of ethanol and check solubility.\nTake about 10 mg of sample into 100 ml of ether and check solubility.",
+      "acceptance_criteria": {
+        "type": "text",
+        "min": null,
+        "max": null,
+        "value": "Freely soluble in water; very slightly soluble in ethanol (95%); practically insoluble in ether.",
+        "unit": null,
+        "display": null
+      },
+      "instruments": [],
+      "reagents": [],
+      "tables": [],
+      "sub_tests": [],
+      "section_no": null
+    },
+    {
+      "name": "Identification",
+      "procedure": null,
+      "acceptance_criteria": {
+        "type": "text",
+        "min": null,
+        "max": null,
+        "value": "",
+        "unit": null,
+        "display": null
+      },
+      "instruments": [],
+      "reagents": [],
+      "tables": [],
+      "sub_tests": [
+        {
+          "name": "By IR Spectrophotometry",
+          "procedure": "Blank preparation: Take 100 mg of KBr. Load blank sample into DRS unit and take IR.\nStandard preparation: Mix about 100 mg of KBr and 10 mg of standard. Load and take IR.\nSample preparation: Mix about 100 mg of KBr and 10 mg of sample. Load and take IR.",
+          "acceptance_criteria": {
+            "type": "text",
+            "min": null,
+            "max": null,
+            "value": "IR spectrum of sample should be concordant with IR spectrum of working standard.",
+            "unit": null,
+            "display": null
+          },
+          "instruments": [],
+          "reagents": [],
+          "tables": [],
+          "sub_tests": []
+        },
+        {
+          "name": "By Chemical test",
+          "procedure": "Dissolve 50 mg in 5 ml of water, add 1 ml of sodium hypochlorite solution (3% Cl), boil for 2 minutes, add 1 ml of hydrochloric acid and boil for 4 to 5 minutes. Add 2 ml of hydrochloric acid and 1 ml of a 2% w/v solution of resorcinol, boil for 1 minute, cool, add 10 ml of water and mix. To 5 ml add 6 ml of 2 M sodium hydroxide.",
+          "acceptance_criteria": {
+            "type": "text",
+            "min": null,
+            "max": null,
+            "value": "The resulting solution is violet with a greenish yellow fluorescence.",
+            "unit": null,
+            "display": null
+          },
+          "instruments": [],
+          "reagents": [],
+          "tables": [],
+          "sub_tests": []
+        }
+      ],
+      "section_no": null
+    },
+    {
+      "name": "Appearance of solution",
+      "procedure": "Dissolve 10 g sample in 100 ml water. Compare clarity and colour against reference standards.",
+      "acceptance_criteria": {
+        "type": "text",
+        "min": null,
+        "max": null,
+        "value": "A 10.0% w/v solution in carbon dioxide-free water is clear and not more intensely coloured than reference solution YS7.",
+        "unit": null,
+        "display": null
+      },
+      "instruments": [],
+      "reagents": [],
+      "tables": [],
+      "sub_tests": [],
+      "section_no": null
+    },
+    {
+      "name": "pH",
+      "procedure": "Prepare 1% w/v solution in carbon dioxide-free water. Measure pH using calibrated pH meter.",
+      "acceptance_criteria": {
+        "type": "range",
+        "min": 5.9,
+        "max": 6.3,
+        "value": null,
+        "unit": null,
+        "display": null
+      },
+      "instruments": [],
+      "reagents": [],
+      "tables": [],
+      "sub_tests": [],
+      "section_no": null
+    },
+    {
+      "name": "Heavy metals",
+      "procedure": "Proceed as per pharmacopoeial method for heavy metals.",
+      "acceptance_criteria": {
+        "type": "nmt",
+        "min": null,
+        "max": null,
+        "value": 10.0,
+        "unit": "ppm",
+        "display": null
+      },
+      "instruments": [],
+      "reagents": [],
+      "tables": [],
+      "sub_tests": [],
+      "section_no": null
+    },
+    {
+      "name": "Chlorides",
+      "procedure": null,
+      "acceptance_criteria": {
+        "type": "nmt",
+        "min": null,
+        "max": null,
+        "value": 100.0,
+        "unit": "ppm",
+        "display": null
+      },
+      "instruments": [],
+      "reagents": [],
+      "tables": [],
+      "sub_tests": [],
+      "section_no": null
+    },
+    {
+      "name": "Sulphated ash",
+      "procedure": null,
+      "acceptance_criteria": {
+        "type": "nmt",
+        "min": null,
+        "max": null,
+        "value": 0.1,
+        "unit": "%",
+        "display": null
+      },
+      "instruments": [],
+      "reagents": [],
+      "tables": [],
+      "sub_tests": [],
+      "section_no": null
+    },
+    {
+      "name": "Loss on drying",
+      "procedure": null,
+      "acceptance_criteria": {
+        "type": "nmt",
+        "min": null,
+        "max": null,
+        "value": 0.5,
+        "unit": "%",
+        "display": null
+      },
+      "instruments": [],
+      "reagents": [],
+      "tables": [],
+      "sub_tests": [],
+      "section_no": null
+    },
+    {
+      "name": "Assay",
+      "procedure": null,
+      "acceptance_criteria": {
+        "type": "range",
+        "min": 98.5,
+        "max": 101.5,
+        "value": null,
+        "unit": "%",
+        "display": null
+      },
+      "instruments": [],
+      "reagents": [],
+      "tables": [],
+      "sub_tests": [],
+      "section_no": null
+    }
+  ],
+  "additional_tests": [
+    {
+      "name": "Sieve analysis",
+      "procedure": null,
+      "acceptance_criteria": {
+        "type": "text",
+        "min": null,
+        "max": null,
+        "value": "As per customer requirement",
+        "unit": null,
+        "display": null
+      },
+      "instruments": [],
+      "reagents": [],
+      "tables": [],
+      "sub_tests": [],
+      "section_no": null
+    },
+    {
+      "name": "Bulk Density",
+      "procedure": null,
+      "acceptance_criteria": {
+        "type": "text",
+        "min": null,
+        "max": null,
+        "value": "As per customer requirement",
+        "unit": null,
+        "display": null
+      },
+      "instruments": [],
+      "reagents": [],
+      "tables": [],
+      "sub_tests": [],
+      "section_no": null
+    },
+    {
+      "name": "Elemental impurities by AAS (As per ICH Q3D)",
+      "procedure": null,
+      "acceptance_criteria": {
+        "type": "text",
+        "min": null,
+        "max": null,
+        "value": "",
+        "unit": null,
+        "display": null
+      },
+      "instruments": [],
+      "reagents": [],
+      "tables": [],
+      "sub_tests": [
+        {
+          "name": "Lead (Pb)",
+          "procedure": null,
+          "acceptance_criteria": {
+            "type": "nmt",
+            "min": null,
+            "max": null,
+            "value": 0.5,
+            "unit": "\u00b5g/g",
+            "display": null
+          },
+          "instruments": [],
+          "reagents": [],
+          "tables": [],
+          "sub_tests": []
+        },
+        {
+          "name": "Arsenic (As)",
+          "procedure": null,
+          "acceptance_criteria": {
+            "type": "nmt",
+            "min": null,
+            "max": null,
+            "value": 0.5,
+            "unit": "\u00b5g/g",
+            "display": null
+          },
+          "instruments": [],
+          "reagents": [],
+          "tables": [],
+          "sub_tests": []
+        }
+      ],
+      "section_no": null
+    }
+  ],
+  "microbiological_tests": [
+    {
+      "name": "TAMC",
+      "procedure": null,
+      "acceptance_criteria": {
+        "type": "nmt",
+        "min": null,
+        "max": null,
+        "value": "NMT 10\u00b3 CFU/g",
+        "unit": "CFU/g",
+        "display": null
+      },
+      "instruments": [],
+      "reagents": [],
+      "tables": [],
+      "sub_tests": [],
+      "section_no": null
+    },
+    {
+      "name": "TYMC",
+      "procedure": null,
+      "acceptance_criteria": {
+        "type": "nmt",
+        "min": null,
+        "max": null,
+        "value": "NMT 10\u00b2 CFU/g",
+        "unit": "CFU/g",
+        "display": null
+      },
+      "instruments": [],
+      "reagents": [],
+      "tables": [],
+      "sub_tests": [],
+      "section_no": null
+    }
+  ],
+  "sop_sections": [],
+  "revision_history": [],
+  "metadata": {}
+}

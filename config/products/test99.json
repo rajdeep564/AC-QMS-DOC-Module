@@ -1,0 +1,45 @@
+{
+  "product_code": "TEST99",
+  "product_name": "Test Product",
+  "reference": "IP",
+  "molecular_weight": null,
+  "chemical_formula": null,
+  "specification_no": "SPEC/TEST99/01",
+  "moa_no": "MOA/TEST99/01",
+  "protocol_no": "PROT/TEST99/01",
+  "department": "QUALITY ASSURANCE",
+  "tests": [
+    {
+      "name": "Description",
+      "procedure": "Visual check.",
+      "acceptance_criteria": {
+        "type": "equals",
+        "min": null,
+        "max": null,
+        "value": "White powder",
+        "unit": null,
+        "display": null
+      },
+      "instruments": [],
+      "reagents": [],
+      "tables": [],
+      "sub_tests": [],
+      "section_no": null
+    }
+  ],
+  "additional_tests": [],
+  "microbiological_tests": [],
+  "sop_sections": [],
+  "revision_history": [],
+  "metadata": {
+    "technical_name": "Test acid",
+    "composition": "100 %",
+    "origin": "Synthetic",
+    "method_of_production": "Chemical synthesis",
+    "packing_primary": "",
+    "packing_secondary": "",
+    "shelf_life": "",
+    "storage_conditions": "",
+    "special_handling": "N/A"
+  }
+}
