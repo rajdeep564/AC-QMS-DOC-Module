@@ -1,0 +1,103 @@
+{
+  "body_table_grids": [
+    [
+      2340,
+      2340,
+      2340,
+      2340
+    ]
+  ],
+  "footer_parts": [
+    "footer1.xml",
+    "footer2.xml"
+  ],
+  "footer_table_grids": {
+    "footer1.xml": [
+      [
+        1734,
+        1733,
+        1733,
+        1733,
+        1733,
+        1734
+      ]
+    ],
+    "footer2.xml": [
+      [
+        1734,
+        1733,
+        1733,
+        1733,
+        1733,
+        1734
+      ]
+    ]
+  },
+  "header_parts": [
+    "header1.xml",
+    "header2.xml"
+  ],
+  "header_table_grids": {
+    "header1.xml": [
+      [
+        4680,
+        4680
+      ]
+    ],
+    "header2.xml": [
+      [
+        4680,
+        4680
+      ]
+    ]
+  },
+  "logo_extents": [],
+  "page_fields": [
+    "PAGE  \\* Arabic  \\* MERGEFORMAT",
+    "NUMPAGES  \\* Arabic  \\* MERGEFORMAT",
+    "PAGE  \\* Arabic  \\* MERGEFORMAT",
+    "NUMPAGES  \\* Arabic  \\* MERGEFORMAT"
+  ],
+  "paper": {
+    "h": "16834",
+    "w": "11909"
+  },
+  "sections": [
+    {
+      "margins": {
+        "bottom": "1440",
+        "footer": "720",
+        "header": "1440",
+        "left": "1440",
+        "right": "1440",
+        "top": "1440"
+      },
+      "page_borders": {
+        "bottom": {
+          "space": "1",
+          "sz": "4",
+          "val": "double"
+        },
+        "left": {
+          "space": "20",
+          "sz": "4",
+          "val": "double"
+        },
+        "right": {
+          "space": "20",
+          "sz": "4",
+          "val": "double"
+        },
+        "top": {
+          "space": "2",
+          "sz": "4",
+          "val": "double"
+        }
+      },
+      "paper": {
+        "h": "16834",
+        "w": "11909"
+      }
+    }
+  ]
+}

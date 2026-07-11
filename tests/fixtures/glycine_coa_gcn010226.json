@@ -1,0 +1,122 @@
+{
+  "document_no": "GCN/010226",
+  "document_no_label": "COA NO.",
+  "document_type_label": "ANALYTICAL REPORT",
+  "revision_no": "01",
+  "effective_date": "01 FEB 2026",
+  "review_date": "01 FEB 2029",
+  "company_name": "Aditya Chemicals",
+  "product": {
+    "product_name": "Glycine IP",
+    "product_code": "FG00038",
+    "reference": "IP",
+    "specification_no": "SPEC/FG00038/01",
+    "moa_no": "MOA/FG00038/01"
+  },
+  "batch": {
+    "batch_no": "GCN/010226",
+    "arn_no": "2026 GCN 09",
+    "mfg_date": "01 FEB 2026",
+    "exp_date": "31 JAN 2031",
+    "batch_size": "3000 Kgs"
+  },
+  "coa_results": [
+    {
+      "sort_order": 1,
+      "test_name": "Description",
+      "result": "A white, crystalline powder; odorless",
+      "acceptance_limits": "A white crystalline powder",
+      "conclusion": "Complies"
+    },
+    {
+      "sort_order": 2,
+      "test_name": "Solubility",
+      "result": "Complies",
+      "acceptance_limits": "Freely soluble in water; very slightly soluble in ethanol (95%); practically insoluble in ether.",
+      "conclusion": "Complies"
+    },
+    {
+      "sort_order": 3,
+      "test_name": "Identification A (IR)",
+      "result": "Complies (purity index 0.9979)",
+      "acceptance_limits": "IR spectrum concordant with working standard",
+      "conclusion": "Complies"
+    },
+    {
+      "sort_order": 4,
+      "test_name": "Identification B (chemical)",
+      "result": "Complies",
+      "acceptance_limits": "violet → orange → yellow",
+      "conclusion": "Complies"
+    },
+    {
+      "sort_order": 5,
+      "test_name": "Appearance of solution",
+      "result": "Complies",
+      "acceptance_limits": "clear, ≤ YS7",
+      "conclusion": "Complies"
+    },
+    {
+      "sort_order": 6,
+      "test_name": "pH",
+      "result": "6.02",
+      "acceptance_limits": "5.9 to 6.3",
+      "conclusion": "Complies"
+    },
+    {
+      "sort_order": 7,
+      "test_name": "Heavy metals",
+      "result": "< 10 ppm",
+      "acceptance_limits": "NMT 10 ppm",
+      "conclusion": "Complies"
+    },
+    {
+      "sort_order": 8,
+      "test_name": "Chlorides",
+      "result": "< 100 ppm",
+      "acceptance_limits": "NMT 100 ppm",
+      "conclusion": "Complies"
+    },
+    {
+      "sort_order": 9,
+      "test_name": "Sulphated ash",
+      "result": "0.04 %",
+      "acceptance_limits": "NMT 0.1 %",
+      "conclusion": "Complies"
+    },
+    {
+      "sort_order": 10,
+      "test_name": "Loss on drying",
+      "result": "0.25 %",
+      "acceptance_limits": "NMT 0.5 %",
+      "conclusion": "Complies"
+    },
+    {
+      "sort_order": 11,
+      "test_name": "Assay",
+      "result": "99.72 %",
+      "acceptance_limits": "98.5% to 101.5%",
+      "conclusion": "Complies"
+    }
+  ],
+  "compliance_verdict": "COMPLIES",
+  "compliance_remark": "Complies with the IP specification",
+  "approval": {
+    "prepared_by": {
+      "name": "Twinkal Tarapara",
+      "designation": "QC Executive",
+      "date": "01 FEB 2026"
+    },
+    "checked_by": {
+      "name": "Dipak Prajapati",
+      "designation": "QC Manager",
+      "date": "01 FEB 2026"
+    },
+    "approved_by": {
+      "name": "Mahesh Patel",
+      "designation": "QA Manager",
+      "date": "01 FEB 2026"
+    }
+  },
+  "revision_history": []
+}

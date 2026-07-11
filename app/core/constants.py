@@ -8,6 +8,8 @@ class DocumentType(StrEnum):
     ANNEXURE = "ANNEXURE"
     SPECIFICATION = "SPECIFICATION"
     STANDARD_FORMAT = "STANDARD_FORMAT"
+    COA = "COA"
+    AWS = "AWS"
 
 
 class DocumentStatus(StrEnum):
@@ -31,6 +33,8 @@ DOCUMENT_NUMBER_PREFIX = {
     DocumentType.ANNEXURE: "ANNEXURE",
     DocumentType.SPECIFICATION: "SPEC/FG",
     DocumentType.STANDARD_FORMAT: "SF",
+    DocumentType.COA: "COA",
+    DocumentType.AWS: "AWS",
 }
 
 FOOTER_RESTRICTED_TEXT = "For Restricted Circulation Only"

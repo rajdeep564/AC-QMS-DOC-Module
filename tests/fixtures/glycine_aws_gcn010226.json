@@ -1,0 +1,161 @@
+{
+  "document_no": "AWS/GCN/01",
+  "document_no_label": "AWS NO.",
+  "document_type_label": "FINISHED PRODUCT ANALYSIS PROTOCOL",
+  "revision_no": "01",
+  "effective_date": "01 FEB 2026",
+  "review_date": "01 FEB 2029",
+  "superseded_revision": "New",
+  "company_name": "Aditya Chemicals",
+  "department": "QUALITY ASSURANCE",
+  "product": {
+    "product_name": "Glycine IP",
+    "product_code": "FG00038",
+    "reference": "IP",
+    "specification_no": "SPEC/FG00038/01",
+    "moa_no": "MOA/FG00038/01"
+  },
+  "batch": {
+    "batch_no": "GCN/010226",
+    "arn_no": "2026 GCN 09",
+    "mfg_date": "01 FEB 2026",
+    "exp_date": "31 JAN 2031",
+    "batch_size": "3000 Kgs",
+    "received_date": "02 FEB 2026",
+    "testing_date": "03 FEB 2026",
+    "completion_date": "05 FEB 2026"
+  },
+  "sections": [
+    {
+      "sort_order": 1,
+      "section_no": "1",
+      "test_name": "Description",
+      "limits_display": "A white crystalline powder",
+      "procedure_text": "Examine the sample visually under adequate light.",
+      "readings_display": "White crystalline powder; odorless",
+      "result_display": "A white, crystalline powder; odorless",
+      "conclusion_display": "Satisfactory",
+      "analyst": {
+        "name": "Twinkal Tarapara",
+        "designation": "QC Executive",
+        "date": "03 FEB 2026"
+      },
+      "checker": {
+        "name": "Dipak Prajapati",
+        "designation": "QC Manager",
+        "date": "03 FEB 2026"
+      }
+    },
+    {
+      "sort_order": 2,
+      "section_no": "2",
+      "test_name": "pH",
+      "limits_display": "5.9 to 6.3",
+      "procedure_text": "Dissolve 1.0 g in 10 mL of carbon dioxide-free water. Measure pH.",
+      "readings_display": "pH meter reading: 6.02",
+      "result_display": "6.02",
+      "conclusion_display": "Satisfactory",
+      "instrument_display": "pH Meter MET-PH-04 (Cal. due 15 JAN 2027)",
+      "analyst": {
+        "name": "Twinkal Tarapara",
+        "designation": "QC Executive",
+        "date": "03 FEB 2026"
+      },
+      "checker": {
+        "name": "Dipak Prajapati",
+        "designation": "QC Manager",
+        "date": "03 FEB 2026"
+      }
+    },
+    {
+      "sort_order": 3,
+      "section_no": "3",
+      "test_name": "Heavy metals",
+      "limits_display": "NMT 10 ppm",
+      "procedure_text": "Proceed as per MOA section for Heavy metals.",
+      "readings_display": "Sample solution colour: lighter than standard",
+      "result_display": "< 10 ppm",
+      "conclusion_display": "Satisfactory",
+      "reagent_display": "Lead standard solution, Ammonia solution",
+      "instrument_expired_ack": true,
+      "expiry_ack_comment": "Expired reagent lot RE-2024-11 used with QA deviation DEV-2026-014 acknowledged.",
+      "analyst": {
+        "name": "Twinkal Tarapara",
+        "designation": "QC Executive",
+        "date": "04 FEB 2026"
+      },
+      "checker": {
+        "name": "Dipak Prajapati",
+        "designation": "QC Manager",
+        "date": "04 FEB 2026"
+      }
+    },
+    {
+      "sort_order": 4,
+      "section_no": "4",
+      "test_name": "Loss on drying",
+      "limits_display": "NMT 0.5 %",
+      "procedure_text": "Dry 1.0 g at 105 °C to constant weight.",
+      "readings_display": "Initial: 1.0020 g; Final: 0.9995 g",
+      "calculated_result": "0.25 %",
+      "result_display": "0.25 %",
+      "conclusion_display": "Satisfactory",
+      "instrument_display": "Hot air oven HO-12",
+      "analyst": {
+        "name": "Twinkal Tarapara",
+        "designation": "QC Executive",
+        "date": "04 FEB 2026"
+      },
+      "checker": {
+        "name": "Dipak Prajapati",
+        "designation": "QC Manager",
+        "date": "04 FEB 2026"
+      }
+    },
+    {
+      "sort_order": 5,
+      "section_no": "5",
+      "test_name": "Assay",
+      "limits_display": "98.5% to 101.5%",
+      "procedure_text": "Titrate with 0.1 M perchloric acid using crystal violet indicator.",
+      "readings_display": "Titre: 8.42 mL; Blank: 0.12 mL",
+      "calculated_result": "102.1 %",
+      "result_display": "102.1 %",
+      "conclusion_display": "Not satisfactory",
+      "is_oos": true,
+      "oos_acknowledged": true,
+      "oos_ack_comment": "OOS investigated per SOP-QC-012; batch disposition pending QA review.",
+      "instrument_display": "Auto titrator AT-07",
+      "reagent_display": "0.1 M Perchloric acid, Crystal violet",
+      "analyst": {
+        "name": "Twinkal Tarapara",
+        "designation": "QC Executive",
+        "date": "05 FEB 2026"
+      },
+      "checker": {
+        "name": "Dipak Prajapati",
+        "designation": "QC Manager",
+        "date": "05 FEB 2026"
+      }
+    }
+  ],
+  "compliance_note": "Note: Above mentioned product complies / does not comply as per IP specification.",
+  "approval": {
+    "prepared_by": {
+      "name": "Twinkal Tarapara",
+      "designation": "QC Executive",
+      "date": "05 FEB 2026"
+    },
+    "checked_by": {
+      "name": "Dipak Prajapati",
+      "designation": "QC Manager",
+      "date": "05 FEB 2026"
+    },
+    "approved_by": {
+      "name": "Mahesh Patel",
+      "designation": "QA Manager",
+      "date": "05 FEB 2026"
+    }
+  },
+  "revision_history": []
+}

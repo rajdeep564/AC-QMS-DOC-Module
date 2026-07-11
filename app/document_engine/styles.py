@@ -7,88 +7,116 @@ from docx.shared import Inches, Pt
 
 from app.core.config import get_settings
 from app.core.constants import DocumentType
+from app.document_engine.sop_style import get_page_border_spaces, get_page_setup, load_sop_style
 
-# Protocol table widths (dxa twips) — scaled to fit A4 content area (10468 dxa)
-# A4 page (8.27") with 0.5" L+R margins: content = 11908 - 720 - 720 = 10468 dxa
-# Target 10400 gives ~68 dxa safety margin on each side
-PROTOCOL_TABLE_WIDTH_DXA = 10400
-BATCH_TABLE_WIDTH_DXA = 10400
-SUMMARY_TABLE_WIDTH_DXA = 10400
-SIGNOFF_TABLE_WIDTH_DXA = 10400
+_cfg = load_sop_style()
+_t = _cfg.tables
+_p = _t.protocol
+_m = _t.moa
+_s = _t.specification
+_sop = _t.sop
+_c = _t.coa
+_a = _t.aws
+_sp = _cfg.spacing
+_logo = _cfg.logo
 
-# Colon separator column — matches reference batch table colon column (296 dxa)
-COLON_COL_WIDTH_DXA = 279
+# Protocol / shared table constants (from sop_style.yaml)
+PROTOCOL_TABLE_WIDTH_DXA = _p.table_width_dxa
+BATCH_TABLE_WIDTH_DXA = _p.batch_table_width_dxa
+SUMMARY_TABLE_WIDTH_DXA = _p.summary_table_width_dxa
+SIGNOFF_TABLE_WIDTH_DXA = _p.signoff_table_width_dxa
+COLON_COL_WIDTH_DXA = _t.colon_col_width_dxa
+BATCH_GRID_COLS = _p.batch_grid_cols
+SUMMARY_GRID_COLS = _p.summary_grid_cols
+SIGNOFF_GRID_COLS = _p.signoff_grid_cols
+FOOTER_GRID_COLS = _t.footer_grid_cols
+FOOTER_TABLE_WIDTH_DXA = _t.footer_table_width_dxa
+FOOTER_TABLE_INDENT_DXA = _t.footer_table_indent_dxa
+DETAIL_GRID_COLS = _p.detail_grid_cols
+_TW = _t.shared_table_width_dxa
 
-# Column grids scaled proportionally from reference to fit 10400 dxa
-BATCH_GRID_COLS = [2447, 279, 2851, 2027, 279, 2517]
-# Sr | Tests | (divider 6 dxa) | Results | Limits — 5 cols
-SUMMARY_GRID_COLS = [937, 2469, 6, 2641, 4347]
-SIGNOFF_GRID_COLS = [2544, 2286, 2905, 2665]
-# Footer sign-off row: 6 equal columns (SIGN | DATE × 3)
-FOOTER_GRID_COLS = [1734, 1733, 1733, 1733, 1733, 1734]
-FOOTER_TABLE_WIDTH_DXA = 10400
-FOOTER_TABLE_INDENT_DXA = 0
-DETAIL_GRID_COLS = [599, 32, 9769]
+MOA_TABLE_WIDTH_DXA = _m.table_width_dxa
+MOA_DETAIL_GRID_COLS = _m.detail_grid_cols
+MOA_HEADER_TABLE_WIDTH_DXA = _m.header_table_width_dxa
+MOA_HEADER_TABLE_INDENT_DXA = _m.header_table_indent_dxa
+MOA_HEADER_GRID_COLS = _m.header_grid_cols
+MOA_FOOTER_TABLE_WIDTH_DXA = _m.footer_table_width_dxa
+MOA_FOOTER_GRID_COLS = _m.footer_grid_cols
+MOA_REVISION_GRID_COLS = _m.revision_grid_cols
+MOA_REVISION_TABLE_WIDTH_DXA = _m.revision_table_width_dxa
+MOA_REVISION_TABLE_INDENT_DXA = _m.revision_table_indent_dxa
 
-# All tables share a single target width (10400 dxa) and zero indent so every
-# table — header, body, footer — starts at the same left edge and ends at the
-# same right edge.  A4 content = 11908 - 720 - 720 = 10468 dxa; 10400 leaves
-# a ~34 dxa safety buffer on each side.
-_TW = 10400  # shared table width for all docs
+SPEC_TABLE_WIDTH_DXA = _s.table_width_dxa
+SPEC_HEADER_TABLE_WIDTH_DXA = _s.header_table_width_dxa
+SPEC_HEADER_TABLE_INDENT_DXA = _s.header_table_indent_dxa
+SPEC_HEADER_GRID_COLS = _s.header_grid_cols
+SPEC_FOOTER_TABLE_WIDTH_DXA = _s.footer_table_width_dxa
+SPEC_FOOTER_GRID_COLS = _s.footer_grid_cols
+SPEC_FOOTER_TABLE_INDENT_DXA = _s.footer_table_indent_dxa
+SPEC_PRODUCT_GRID_COLS = _s.product_grid_cols
+SPEC_PARAM_GRID_COLS = _s.param_grid_cols
+SPEC_MICRO_GRID_COLS = _s.micro_grid_cols
+SPEC_REVISION_GRID_COLS = _s.revision_grid_cols
+SPEC_REVISION_TABLE_WIDTH_DXA = _s.revision_table_width_dxa
+SPEC_REVISION_TABLE_INDENT_DXA = _s.revision_table_indent_dxa
 
-# MOA — column grids scaled proportionally from reference to _TW
-MOA_TABLE_WIDTH_DXA = _TW
-MOA_DETAIL_GRID_COLS = [694, 162, 54, 9490]          # ref [709,166,55,9702] sum=10632
-MOA_HEADER_TABLE_WIDTH_DXA = _TW
-MOA_HEADER_TABLE_INDENT_DXA = 0
-MOA_HEADER_GRID_COLS = [2185, 262, 3146, 2401, 229, 2177]  # ref sum=10710
-MOA_FOOTER_TABLE_WIDTH_DXA = _TW
-MOA_FOOTER_GRID_COLS = [1734, 1733, 1733, 1733, 1733, 1734]  # ref sum=10710
-MOA_REVISION_GRID_COLS = [2949, 3986, 1629, 1836]    # ref sum=10710
-MOA_REVISION_TABLE_WIDTH_DXA = _TW
-MOA_REVISION_TABLE_INDENT_DXA = 0
+COA_HEADER_TABLE_WIDTH_DXA = _c.header_table_width_dxa
+COA_HEADER_TABLE_INDENT_DXA = _c.header_table_indent_dxa
+COA_HEADER_GRID_COLS = _c.header_grid_cols
+COA_FOOTER_TABLE_WIDTH_DXA = _c.footer_table_width_dxa
+COA_FOOTER_GRID_COLS = _c.footer_grid_cols
+COA_FOOTER_TABLE_INDENT_DXA = _c.footer_table_indent_dxa
+COA_RESULTS_TABLE_WIDTH_DXA = _c.results_table_width_dxa
+COA_RESULTS_GRID_COLS = _c.results_grid_cols
+COA_REVISION_GRID_COLS = _c.revision_grid_cols
+COA_REVISION_TABLE_WIDTH_DXA = _c.revision_table_width_dxa
+COA_REVISION_TABLE_INDENT_DXA = _c.revision_table_indent_dxa
 
-# SPECIFICATION — exact reference dimensions (tables wider than content, jc=center)
-SPEC_TABLE_WIDTH_DXA = 11155          # reference body table width (centered, wider than A4 content)
-SPEC_HEADER_TABLE_WIDTH_DXA = 11160  # reference header table width
-SPEC_HEADER_TABLE_INDENT_DXA = -365  # reference negative indent (extends left into margin)
-SPEC_HEADER_GRID_COLS = [2250, 293, 3487, 2036, 304, 2790]  # reference exact col widths
-SPEC_FOOTER_TABLE_WIDTH_DXA = _TW
-SPEC_FOOTER_GRID_COLS = [1734, 1733, 1733, 1733, 1733, 1734]
-SPEC_FOOTER_TABLE_INDENT_DXA = 0
-SPEC_PRODUCT_GRID_COLS = [2263, 1701, 1985, 5206]   # reference table 1 exact
-SPEC_PARAM_GRID_COLS = [2263, 2152, 1534, 5206]     # reference table 2 exact
-SPEC_MICRO_GRID_COLS = [2263, 3686, 5206]           # reference table 3 exact
-SPEC_REVISION_GRID_COLS = [2813, 3487, 2430, 2430]  # reference revision history exact
-SPEC_REVISION_TABLE_WIDTH_DXA = 11160
-SPEC_REVISION_TABLE_INDENT_DXA = 0
+AWS_TABLE_WIDTH_DXA = _a.table_width_dxa
+AWS_BATCH_TABLE_WIDTH_DXA = _a.batch_table_width_dxa
+AWS_SUMMARY_TABLE_WIDTH_DXA = _a.summary_table_width_dxa
+AWS_SIGNOFF_TABLE_WIDTH_DXA = _a.signoff_table_width_dxa
+AWS_BATCH_GRID_COLS = _a.batch_grid_cols
+AWS_SUMMARY_GRID_COLS = _a.summary_grid_cols
+AWS_SIGNOFF_GRID_COLS = _a.signoff_grid_cols
+AWS_DETAIL_GRID_COLS = _a.detail_grid_cols
+AWS_HEADER_GRID_COLS = _a.header_grid_cols
+AWS_HEADER_TABLE_WIDTH_DXA = _a.header_table_width_dxa
+AWS_HEADER_TABLE_INDENT_DXA = _a.header_table_indent_dxa
+AWS_FOOTER_TABLE_WIDTH_DXA = _a.footer_table_width_dxa
+AWS_FOOTER_GRID_COLS = _a.footer_grid_cols
+AWS_FOOTER_TABLE_INDENT_DXA = _a.footer_table_indent_dxa
+AWS_REVISION_GRID_COLS = _a.aws_revision_grid_cols
+AWS_REVISION_TABLE_WIDTH_DXA = _a.aws_revision_table_width_dxa
+AWS_REVISION_TABLE_INDENT_DXA = _a.aws_revision_table_indent_dxa
 
-# Protocol revision history
-PROTOCOL_REVISION_GRID_COLS = [2546, 3882, 2008, 1964]  # ref sum=11057, scaled to _TW
-PROTOCOL_REVISION_TABLE_WIDTH_DXA = _TW
-PROTOCOL_REVISION_TABLE_INDENT_DXA = 0
+PROTOCOL_REVISION_GRID_COLS = _p.protocol_revision_grid_cols
+PROTOCOL_REVISION_TABLE_WIDTH_DXA = _p.protocol_revision_table_width_dxa
+PROTOCOL_REVISION_TABLE_INDENT_DXA = _p.protocol_revision_table_indent_dxa
+HEADER_GRID_COLS = _p.header_grid_cols
+HEADER_TABLE_WIDTH_DXA = _p.header_table_width_dxa
 
-# Protocol header grid (kept for SOP/Annexure) — scaled to _TW
-HEADER_GRID_COLS = [2278, 279, 2640, 1864, 279, 3060]
-HEADER_TABLE_WIDTH_DXA = _TW
+PROTOCOL_SPACER_LINE_TWIPS = _sp.protocol_spacer_twips
+PROTOCOL_SECTION_GAP_TWIPS = _sp.protocol_section_gap_twips
+DETAIL_COMPACT_LINE_TWIPS = _sp.detail_compact_twips
+DETAIL_CELL_MARGIN_TWIPS = _sp.detail_cell_margin_twips
 
-# Spacing between body tables (twips) — reference uses line=360 (18pt)
-PROTOCOL_SPACER_LINE_TWIPS = 360
-PROTOCOL_SECTION_GAP_TWIPS = 120
-# Tight line spacing inside procedure/detail cells — height follows content only
-DETAIL_COMPACT_LINE_TWIPS = 240
-DETAIL_CELL_MARGIN_TWIPS = 40
+HEADER_TABLE_INDENT_DXA = _t.header_table_indent_dxa
+SIGNOFF_TABLE_INDENT_DXA = _t.signoff_table_indent_dxa
+HEADER_LOGO_ROW_HEIGHT_TWIPS = _logo.row_height_twips
 
-HEADER_TABLE_INDENT_DXA = 0
-SIGNOFF_TABLE_INDENT_DXA = 0
-HEADER_LOGO_ROW_HEIGHT_TWIPS = 943  # logo.jpeg at 1.33" wide = 0.655" tall = 943 twips
+SOP_HEADER_GRID_COLS = _sop.header_grid_cols
+SOP_HEADER_TABLE_WIDTH_DXA = _sop.header_table_width_dxa
+SOP_REVISION_GRID_COLS = _sop.revision_grid_cols
+SOP_REVISION_TABLE_WIDTH_DXA = _sop.revision_table_width_dxa
 
 
 def style_run(run, *, bold: bool = False, size: int | None = None, font: str | None = None) -> None:
     settings = get_settings()
+    page = load_sop_style().page
     run.bold = bold
-    run.font.name = font or settings.default_font
-    run.font.size = Pt(size or settings.default_font_size)
+    run.font.name = font or settings.default_font or page.font
+    run.font.size = Pt(size or settings.default_font_size or page.font_size_pt)
 
 
 def set_cell_text(
@@ -136,11 +164,20 @@ def set_cell_paragraphs(
 def set_cell_margins_dxa(
     cell,
     *,
-    top: int = DETAIL_CELL_MARGIN_TWIPS,
-    bottom: int = DETAIL_CELL_MARGIN_TWIPS,
-    left: int = 108,
-    right: int = 108,
+    top: int | None = None,
+    bottom: int | None = None,
+    left: int | None = None,
+    right: int | None = None,
 ) -> None:
+    sp = load_sop_style().spacing
+    if top is None:
+        top = sp.detail_cell_margin_twips
+    if bottom is None:
+        bottom = sp.detail_cell_margin_twips
+    if left is None:
+        left = sp.detail_cell_margin_lr_dxa
+    if right is None:
+        right = sp.detail_cell_margin_lr_dxa
     tc_pr = cell._tc.get_or_add_tcPr()
     existing = tc_pr.find(qn("w:tcMar"))
     if existing is not None:
@@ -171,7 +208,12 @@ def _border_element(side: str, val: str = "single", sz: str = "4", space: str = 
     return el
 
 
-def apply_cell_borders(cell, val: str = "single", sz: str = "4") -> None:
+def apply_cell_borders(cell, val: str | None = None, sz: str | None = None) -> None:
+    borders = load_sop_style().borders
+    if val is None:
+        val = borders.cell_val
+    if sz is None:
+        sz = borders.cell_sz
     tc_pr = cell._tc.get_or_add_tcPr()
     existing = tc_pr.find(qn("w:tcBorders"))
     if existing is not None:
@@ -182,7 +224,12 @@ def apply_cell_borders(cell, val: str = "single", sz: str = "4") -> None:
     tc_pr.append(tc_borders)
 
 
-def apply_table_grid_borders(table, val: str = "single", sz: str = "4") -> None:
+def apply_table_grid_borders(table, val: str | None = None, sz: str | None = None) -> None:
+    borders = load_sop_style().borders
+    if val is None:
+        val = borders.cell_val
+    if sz is None:
+        sz = borders.cell_sz
     tbl = table._tbl
     tbl_pr = tbl.tblPr
     if tbl_pr is None:
@@ -197,15 +244,17 @@ def apply_table_grid_borders(table, val: str = "single", sz: str = "4") -> None:
     tbl_pr.append(tbl_borders)
 
 
-def set_page_border(section, *, val: str = "double", sz: str = "4") -> None:
+def set_page_border(section, *, val: str = "double", sz: str | None = None) -> None:
+    style = load_sop_style()
+    if sz is None:
+        sz = style.borders.page_sz
     sect_pr = section._sectPr
     existing = sect_pr.find(qn("w:pgBorders"))
     if existing is not None:
         sect_pr.remove(existing)
 
     pg_borders = OxmlElement("w:pgBorders")
-    # Default offsetFrom=text — borders sit inside margins (matches GLYCINE IP.docx).
-    spaces = {"top": "2", "left": "20", "bottom": "1", "right": "20"}
+    spaces = get_page_border_spaces()
     for border_name in ("top", "left", "bottom", "right"):
         border = OxmlElement(f"w:{border_name}")
         border.set(qn("w:val"), val)
@@ -217,8 +266,9 @@ def set_page_border(section, *, val: str = "double", sz: str = "4") -> None:
 
 
 def _set_margins(section, margins: dict[str, float]) -> None:
-    section.page_height = Inches(11.69)
-    section.page_width = Inches(8.27)
+    page = load_sop_style().page
+    section.page_height = Inches(page.height_inches)
+    section.page_width = Inches(page.width_inches)
     section.top_margin = Inches(margins["top"])
     section.bottom_margin = Inches(margins["bottom"])
     section.left_margin = Inches(margins["left"])
@@ -227,57 +277,8 @@ def _set_margins(section, margins: dict[str, float]) -> None:
     section.footer_distance = Inches(margins["footer"])
 
 
-PAGE_SETUP = {
-    DocumentType.PROTOCOL: {
-        "top": 1.0,   # 1440 dxa — matches GLYCINE IP.docx
-        "right": 0.5,
-        "bottom": 0.5,
-        "left": 0.5,
-        "header": 0.5,
-        "footer": 0.33,
-        "border": "double",
-    },
-    DocumentType.MOA: {
-        "top": 0.5,   # 720 dxa — matches MOA Glycine IP.docx
-        "right": 0.5,
-        "bottom": 0.5,
-        "left": 0.5,
-        "header": 0.5,
-        "footer": 0.40,
-        "border": "single",  # MOA uses single border, not double
-    },
-    DocumentType.SOP: {
-        "top": 1.0,
-        "right": 1.0,
-        "bottom": 1.0,
-        "left": 1.0,
-        "header": 1.0,
-        "footer": 0.5,
-        "border": "double",
-    },
-    DocumentType.ANNEXURE: {
-        "top": 1.0,
-        "right": 1.0,
-        "bottom": 1.0,
-        "left": 1.0,
-        "header": 1.0,
-        "footer": 0.3,
-        "border": "double",
-    },
-    DocumentType.SPECIFICATION: {
-        "top": 0.5,   # 720 dxa — matches Spec Glycine IP.docx
-        "right": 0.5,
-        "bottom": 0.5,
-        "left": 0.5,
-        "header": 0.5,
-        "footer": 0.5,
-        "border": None,  # Spec has NO page border
-    },
-}
-
-
 def configure_page_setup(section, document_type: DocumentType) -> None:
-    setup = PAGE_SETUP.get(document_type, PAGE_SETUP[DocumentType.SOP])
+    setup = get_page_setup(document_type)
     _set_margins(section, setup)
     border = setup.get("border")
     if border is not None:

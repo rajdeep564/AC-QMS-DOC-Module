@@ -12,6 +12,7 @@ from docx.shared import Inches, Pt
 
 from app.core.config import get_settings
 from app.core.constants import FOOTER_RESTRICTED_TEXT
+from app.document_engine.sop_style import load_sop_style
 from app.document_engine.styles import (
     FOOTER_GRID_COLS,
     FOOTER_TABLE_INDENT_DXA,
@@ -85,19 +86,23 @@ def _append_page_field(run, instruction: str) -> None:
 
 
 def add_page_number_field(paragraph) -> None:
-    """Insert PAGE and NUMPAGES fields for 'Page X of Y'."""
-    run = paragraph.add_run("Page ")
-    _append_page_field(run, " PAGE ")
-    run = paragraph.add_run(" of ")
-    _append_page_field(run, " NUMPAGES ")
-
-
-def add_protocol_page_number_field(paragraph) -> None:
-    """Product doc header format: '4 of 39' — matches GLYCINE IP.docx."""
+    """Insert PAGE/NUMPAGES fields per sop_style.yaml page_number.format."""
+    fmt = load_sop_style().page_number.format
+    if fmt == "page_n_of_total":
+        run = paragraph.add_run("Page ")
+        _append_page_field(run, " PAGE ")
+        run = paragraph.add_run(" of ")
+        _append_page_field(run, " NUMPAGES ")
+        return
     run = paragraph.add_run()
     _append_page_field(run, " PAGE  \\* Arabic  \\* MERGEFORMAT ")
     run = paragraph.add_run(" of ")
     _append_page_field(run, " NUMPAGES  \\* Arabic  \\* MERGEFORMAT ")
+
+
+def add_protocol_page_number_field(paragraph) -> None:
+    """Backward-compatible alias — delegates to unified page number formatter."""
+    add_page_number_field(paragraph)
 
 
 def clear_header_footer_part(part) -> None:
@@ -246,8 +251,10 @@ def wire_repeating_header_footer(
     footer_builder(section.footer, context)
 
 
-def add_logo_or_company(cell, context: dict, *, logo_width: float = 1.33) -> None:
+def add_logo_or_company(cell, context: dict, *, logo_width: float | None = None) -> None:
     settings_company = context.get("company_name", "Aditya Chemicals")
+    if logo_width is None:
+        logo_width = load_sop_style().logo.width_inches
     cell.text = ""
     p = cell.paragraphs[0]
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER

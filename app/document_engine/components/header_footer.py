@@ -13,6 +13,7 @@ from app.document_engine.components.qa_layout_common import (
     add_restricted_circulation_line,
     build_qa_approval_footer,
 )
+from app.document_engine.sop_style import load_sop_style
 from app.document_engine.styles import configure_page_setup, set_cell_text
 
 
@@ -41,11 +42,12 @@ def build_header_table(
     superseded = context.get("superseded_revision", "")
     subject = context.get("subject", context.get("product_name", ""))
 
+    document_no_label = context["document_no_label"]
     rows_data = [
         (company, doc_type, True, False),
         (f"DEPARTMENT\n{department}", None, False, False),
         (
-            f"{context.get('document_no_label', 'DOCUMENT NO.')}\n{document_no}",
+            f"{document_no_label}\n{document_no}",
             f"EFFECTIVE DATE\n{effective_date}",
             False,
             False,
@@ -74,7 +76,7 @@ def build_header_table(
             cell = table.rows[0].cells[0]
             p = cell.paragraphs[0]
             run = p.add_run()
-            run.add_picture(str(logo_path), width=Inches(1.2))
+            run.add_picture(str(logo_path), width=Inches(load_sop_style().logo.width_inches))
         except Exception:
             pass
 
