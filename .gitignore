@@ -1,11 +1,52 @@
-generated/
-*.db
-.env
-.venv/
-__pycache__/
-*.pyc
-.pytest_cache/
+# =============================================================================
+# AC-QMS-DOC-Module — push policy
+# Commit: app/, config/products/, templates/, static/, tests/fixtures/,
+#         tests/golden/ (DOCX + fingerprints), tests/reference/ (client refs),
+#         requirements*.txt, .env.example, docs/audits/, audit markdown.
+# Never commit: .venv, generated runtime DOCX/PDF, local DB, caches, secrets.
+# =============================================================================
 
-# Collaborator artifacts — commit these (not ignored):
-# docs/audits/*.md
-# Runtime DOCX/PDF in generated/ and qms.db stay ignored above.
+# --- Virtualenv & Python caches (never commit) ---
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+*.egg-info/
+dist/
+build/
+
+# --- Secrets (never commit; example template is tracked) ---
+.env
+.env.*
+!.env.example
+
+# --- Runtime output (regenerated on render; never commit) ---
+generated/
+
+# --- Local databases (never commit) ---
+*.db
+*.sqlite
+*.sqlite3
+
+# --- Logs & IDE ---
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# --- Node (if ever added for tooling) ---
+node_modules/
+
+# Explicitly tracked (do NOT add ignore rules for):
+# - tests/fixtures/*.json, tests/fixtures/logo.png
+# - tests/golden/docx/*.docx, tests/golden/fingerprints/*.json
+# - tests/reference/*.docx, tests/reference/*.md
+# - config/products/*.json, templates/base_*.docx, static/logo.jpeg
+# - app/document_engine/sop_style.yaml
