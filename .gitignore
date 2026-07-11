@@ -5,3 +5,7 @@ generated/
 __pycache__/
 *.pyc
 .pytest_cache/
+
+# Collaborator artifacts — commit these (not ignored):
+# docs/audits/*.md
+# Runtime DOCX/PDF in generated/ and qms.db stay ignored above.

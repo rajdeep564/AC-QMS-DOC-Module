@@ -28,10 +28,8 @@ class Settings(BaseSettings):
     default_font: str = "Times New Roman"
     default_font_size: int = 12
 
-    # Page setup per QA 01 SOP ON SOP
-    page_margin_inch: float = 1.0
-    header_distance_inch: float = 1.0
-    footer_distance_inch: float = 0.5
+    # Shared secret for Gateway → DOC-Module render/generate calls
+    api_key: str
 
     # LibreOffice headless for PDF
     libreoffice_path: str = "soffice"

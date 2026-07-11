@@ -1,14 +1,12 @@
 """Finished Product Analysis Protocol layout — matches GLYCINE IP.docx reference structure."""
 
-from pathlib import Path
-
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.shared import Inches
 
 from app.core.constants import DocumentType
 from app.document_engine.components.qa_layout_common import (
-    _logo_height_inches,
+    add_logo_or_company,
     add_protocol_page_number_field,
     build_revision_history_table,
 )
@@ -57,7 +55,6 @@ from app.document_engine.styles import (
 COMPLIANCE_NOTE = (
     "Note: Above mentioned product complies / does not comply as per IP specification."
 )
-HEADER_LOGO_WIDTH_INCHES = 1.33
 
 OBSERVATION_LINE = "Observation: ____________________________________________"
 ANALYZED_LINE = (
@@ -84,7 +81,6 @@ def build_protocol_header(header, context: dict) -> None:
     Row0: logo (left) | FINISHED PRODUCT ANALYSIS PROTOCOL (right, merged)
     Rows1-4: Label : Value | Label : Value with narrow colon columns
     """
-    settings_company = context.get("company_name", "Aditya Chemicals")
     table = header.add_table(rows=5, cols=6, width=Inches(7.67))
     # Use batch column grid so metadata rows align with the batch table below.
     setup_protocol_table(
@@ -108,23 +104,7 @@ def build_protocol_header(header, context: dict) -> None:
     set_row_height(row0, HEADER_LOGO_ROW_HEIGHT_TWIPS)
 
     logo_cell = row0.cells[0]
-    logo_cell.text = ""
-    logo_p = logo_cell.paragraphs[0]
-    logo_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    # No line-spacing on image paragraph — extra spacing stretches the logo row
-    logo_path = context.get("logo_path")
-    if logo_path and Path(logo_path).exists():
-        try:
-            logo_h = _logo_height_inches(logo_path, HEADER_LOGO_WIDTH_INCHES)
-            if logo_h:
-                logo_p.add_run().add_picture(str(logo_path), width=Inches(HEADER_LOGO_WIDTH_INCHES), height=Inches(logo_h))
-            else:
-                logo_p.add_run().add_picture(str(logo_path), width=Inches(HEADER_LOGO_WIDTH_INCHES))
-        except Exception:
-            style_run(logo_p.add_run(settings_company), bold=True)
-    else:
-        style_run(logo_p.add_run(settings_company), bold=True)
-    set_cell_valign(logo_cell, "center")
+    add_logo_or_company(logo_cell, context)
 
     merge_row_cells(row0, 1, 5)
     title_cell = row0.cells[1]

@@ -12,12 +12,18 @@ from app.document_engine.components.header_footer import (
     add_revision_history_block,
     apply_header_footer_to_document,
 )
+from app.document_engine.components.aws_layout import apply_aws_layout
+from app.document_engine.components.coa_layout import apply_coa_layout
 from app.document_engine.components.moa_layout import apply_moa_layout
 from app.document_engine.components.protocol_layout import apply_protocol_layout
 from app.document_engine.components.sop_layout import apply_sop_layout
 from app.document_engine.components.spec_layout import apply_spec_layout
+from app.document_engine.aws_context import build_aws_context
+from app.document_engine.coa_context import build_coa_context
 from app.document_engine.context_builder import build_document_context
 from app.document_engine.table_renderer import render_table_to_document
+from app.schemas.aws_render import AwsRenderInput
+from app.schemas.coa_render import CoaRenderInput
 from app.schemas.product import ProductConfig
 
 
@@ -36,6 +42,8 @@ PROGRAMMATIC_LAYOUTS = {
     DocumentType.MOA: apply_moa_layout,
     DocumentType.SPECIFICATION: apply_spec_layout,
     DocumentType.SOP: apply_sop_layout,
+    DocumentType.COA: apply_coa_layout,
+    DocumentType.AWS: apply_aws_layout,
 }
 
 
@@ -83,6 +91,24 @@ class DocumentRenderer:
         tpl.save(str(output_path))
 
         self._post_process(output_path, context, document_type)
+        return output_path
+
+    def render_coa(self, payload: CoaRenderInput, output_filename: str) -> Path:
+        """Render COA from render-ready CoaRenderInput — no ProductConfig derivation."""
+        context = build_coa_context(payload)
+        output_path = self.generated_dir / output_filename
+        doc = DocxDocument()
+        apply_coa_layout(doc, context)
+        doc.save(str(output_path))
+        return output_path
+
+    def render_aws(self, payload: AwsRenderInput, output_filename: str) -> Path:
+        """Render AWS from render-ready AwsRenderInput — no ProductConfig derivation."""
+        context = build_aws_context(payload)
+        output_path = self.generated_dir / output_filename
+        doc = DocxDocument()
+        apply_aws_layout(doc, context)
+        doc.save(str(output_path))
         return output_path
 
     def _post_process(

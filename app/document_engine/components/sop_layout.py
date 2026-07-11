@@ -17,6 +17,10 @@ from app.document_engine.components.qa_layout_common import (
 )
 from app.document_engine.styles import (
     PROTOCOL_SPACER_LINE_TWIPS,
+    SOP_HEADER_GRID_COLS,
+    SOP_HEADER_TABLE_WIDTH_DXA,
+    SOP_REVISION_GRID_COLS,
+    SOP_REVISION_TABLE_WIDTH_DXA,
     clear_document_body,
     clear_row_height,
     configure_page_setup,
@@ -25,11 +29,6 @@ from app.document_engine.styles import (
     setup_protocol_table,
     style_run,
 )
-
-SOP_HEADER_GRID_COLS = [4680, 4680]
-SOP_HEADER_TABLE_WIDTH_DXA = 9360
-SOP_REVISION_GRID_COLS = [2340, 2340, 2340, 2340]
-SOP_REVISION_TABLE_WIDTH_DXA = 9360
 
 
 def build_sop_header(header, context: dict) -> None:
@@ -55,7 +54,7 @@ def build_sop_header(header, context: dict) -> None:
     rows_data = [
         (company, doc_type, True, False),
         (f"DEPARTMENT\n{department}", None, False, False),
-        (f"{context.get('document_no_label', 'SOP NO.')}\n{document_no}", f"EFFECTIVE DATE\n{effective_date}", False, False),
+        (f"{context['document_no_label']}\n{document_no}", f"EFFECTIVE DATE\n{effective_date}", False, False),
         (f"SUBJECT\n{subject}", f"REVIEW DATE\n{review_date}", False, False),
         ("", f"SUPERSEDED\n{superseded}", False, False),
     ]

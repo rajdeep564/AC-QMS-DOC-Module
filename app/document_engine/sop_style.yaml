@@ -1,0 +1,202 @@
+version: "1"
+
+page:
+  width_inches: 8.27
+  height_inches: 11.69
+  font: "Times New Roman"
+  font_size_pt: 12
+
+margin_profiles:
+  procedural:
+    top: 1.0
+    right: 1.0
+    bottom: 1.0
+    left: 1.0
+    header: 1.0
+    footer: 0.5
+  format_annexure:
+    top: 1.0
+    right: 1.0
+    bottom: 1.0
+    left: 1.0
+    header: 1.0
+    footer: 0.3
+  analytical:
+    top: 0.5
+    right: 0.5
+    bottom: 0.5
+    left: 0.5
+    header: 0.5
+    footer: 0.5
+
+document_types:
+  PROTOCOL:
+    margin_profile: analytical
+    page_border: double
+    footer: 0.33
+    header_layout: six_column
+    margin_overrides:
+      top: 1.0
+  MOA:
+    margin_profile: analytical
+    page_border: single
+    footer: 0.40
+    header_layout: six_column
+  SOP:
+    margin_profile: procedural
+    page_border: double
+    header_layout: two_column
+  ANNEXURE:
+    margin_profile: format_annexure
+    page_border: double
+    header_layout: two_column
+  SPECIFICATION:
+    margin_profile: analytical
+    page_border: null
+    footer: 0.5
+    header_layout: six_column
+  COA:
+    margin_profile: analytical
+    page_border: null
+    footer: 0.5
+    header_layout: six_column
+  AWS:
+    margin_profile: analytical
+    page_border: double
+    footer: 0.33
+    header_layout: six_column
+    margin_overrides:
+      top: 1.0
+
+page_number:
+  format: n_of_total
+
+logo:
+  width_inches: 1.33
+  row_height_twips: 943
+
+document_labels:
+  MOA: "MOA NO."
+  PROTOCOL: "PROTOCOL NO."
+  SOP: "SOP NO."
+  ANNEXURE: "ANNEXURE NO."
+  SPECIFICATION: "SPECIFICATION NO."
+  STANDARD_FORMAT: "FORMAT NO."
+  COA: "COA NO."
+  AWS: "AWS NO."
+
+document_type_labels:
+  MOA: "METHOD OF ANALYSIS"
+  PROTOCOL: "ANALYSIS PROTOCOL"
+  SOP: "STANDARD OPERATING PROCEDURE"
+  ANNEXURE: "ANNEXURE"
+  SPECIFICATION: "PRODUCT SPECIFICATION"
+  STANDARD_FORMAT: "STANDARD FORMAT"
+  COA: "ANALYTICAL REPORT"
+  AWS: "FINISHED PRODUCT ANALYSIS PROTOCOL"
+
+spacing:
+  protocol_spacer_twips: 360
+  protocol_section_gap_twips: 120
+  detail_compact_twips: 240
+  detail_cell_margin_twips: 40
+  detail_cell_margin_lr_dxa: 108
+
+borders:
+  cell_val: single
+  cell_sz: "4"
+  page_sz: "4"
+  page_border_spaces:
+    top: 2
+    left: 20
+    bottom: 1
+    right: 20
+
+tables:
+  shared_table_width_dxa: 10400
+  colon_col_width_dxa: 279
+  footer_grid_cols: [1734, 1733, 1733, 1733, 1733, 1734]
+  footer_table_width_dxa: 10400
+  footer_table_indent_dxa: 0
+  header_table_indent_dxa: 0
+  signoff_table_indent_dxa: 0
+
+  protocol:
+    table_width_dxa: 10400
+    batch_table_width_dxa: 10400
+    summary_table_width_dxa: 10400
+    signoff_table_width_dxa: 10400
+    batch_grid_cols: [2447, 279, 2851, 2027, 279, 2517]
+    summary_grid_cols: [937, 2469, 6, 2641, 4347]
+    signoff_grid_cols: [2544, 2286, 2905, 2665]
+    detail_grid_cols: [599, 32, 9769]
+    header_grid_cols: [2278, 279, 2640, 1864, 279, 3060]
+    header_table_width_dxa: 10400
+    protocol_revision_grid_cols: [2546, 3882, 2008, 1964]
+    protocol_revision_table_width_dxa: 10400
+    protocol_revision_table_indent_dxa: 0
+
+  moa:
+    table_width_dxa: 10400
+    detail_grid_cols: [694, 162, 54, 9490]
+    header_table_width_dxa: 10400
+    header_table_indent_dxa: 0
+    header_grid_cols: [2185, 262, 3146, 2401, 229, 2177]
+    footer_table_width_dxa: 10400
+    footer_grid_cols: [1734, 1733, 1733, 1733, 1733, 1734]
+    revision_grid_cols: [2949, 3986, 1629, 1836]
+    revision_table_width_dxa: 10400
+    revision_table_indent_dxa: 0
+
+  specification:
+    table_width_dxa: 11155
+    header_table_width_dxa: 11160
+    header_table_indent_dxa: -365
+    header_grid_cols: [2250, 293, 3487, 2036, 304, 2790]
+    footer_table_width_dxa: 10400
+    footer_grid_cols: [1734, 1733, 1733, 1733, 1733, 1734]
+    footer_table_indent_dxa: 0
+    product_grid_cols: [2263, 1701, 1985, 5206]
+    param_grid_cols: [2263, 2152, 1534, 5206]
+    micro_grid_cols: [2263, 3686, 5206]
+    revision_grid_cols: [2813, 3487, 2430, 2430]
+    revision_table_width_dxa: 11160
+    revision_table_indent_dxa: 0
+
+  sop:
+    header_grid_cols: [4680, 4680]
+    header_table_width_dxa: 9360
+    revision_grid_cols: [2340, 2340, 2340, 2340]
+    revision_table_width_dxa: 9360
+
+  coa:
+    header_table_width_dxa: 10400
+    header_table_indent_dxa: 0
+    header_grid_cols: [2185, 262, 3146, 2401, 229, 2177]
+    footer_table_width_dxa: 10400
+    footer_grid_cols: [1734, 1733, 1733, 1733, 1733, 1734]
+    footer_table_indent_dxa: 0
+    results_table_width_dxa: 10400
+    results_grid_cols: [2600, 2600, 2600, 2600]
+    revision_grid_cols: [2949, 3986, 1629, 1836]
+    revision_table_width_dxa: 10400
+    revision_table_indent_dxa: 0
+
+  aws:
+    table_width_dxa: 10400
+    batch_table_width_dxa: 10400
+    summary_table_width_dxa: 10400
+    signoff_table_width_dxa: 10400
+    batch_grid_cols: [2447, 279, 2851, 2027, 279, 2517]
+    summary_grid_cols: [937, 2469, 6, 2641, 4347]
+    signoff_grid_cols: [2544, 2286, 2905, 2665]
+    detail_grid_cols: [599, 32, 9769]
+    header_grid_cols: [2278, 279, 2640, 1864, 279, 3060]
+    header_table_width_dxa: 10400
+    header_table_indent_dxa: 0
+    footer_table_width_dxa: 10400
+    footer_grid_cols: [1734, 1733, 1733, 1733, 1733, 1734]
+    footer_table_indent_dxa: 0
+    aws_revision_grid_cols: [2546, 3882, 2008, 1964]
+    aws_revision_table_width_dxa: 10400
+    aws_revision_table_indent_dxa: 0

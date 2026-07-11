@@ -2,6 +2,8 @@
 
 Pharmaceutical QMS document generation platform — reusable Python service for generating MOA, protocols, SOPs, annexures, and product specifications from JSON configuration.
 
+**Audits:** [docs/audits/](docs/audits/)
+
 ## Features
 
 - **Document types**: MOA, Analysis Protocol, SOP, Annexure, Product Specification

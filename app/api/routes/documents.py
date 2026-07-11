@@ -4,12 +4,14 @@ from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 
+from app.api.deps import verify_api_key
 from app.core.constants import DocumentType
 from app.database.session import get_db
 from app.schemas.document import DocumentGenerateRequest, DocumentResponse, InlineGenerateRequest
+from app.schemas.render_request import InlineAwsRenderRequest, InlineCoaRenderRequest, RenderRequest
 from app.services.document_service import DocumentService
 
-router = APIRouter(tags=["documents"])
+router = APIRouter(tags=["documents"], dependencies=[Depends(verify_api_key)])
 
 _DOC_TYPE_MAP = {
     "moa": DocumentType.MOA,
@@ -126,6 +128,45 @@ def generate_inline(request: InlineGenerateRequest):
         media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
         filename=filename,
     )
+
+
+@router.post("/render", summary="Render batch document from render-ready payload")
+def render_document(request: RenderRequest):
+    """
+    Discriminated render endpoint for batch documents (COA, future AWS).
+
+    Standing documents continue to use POST /generate with ProductConfig.
+    Malformed payloads return HTTP 422 from Pydantic validation.
+    """
+    from app.document_engine.renderer import DocumentRenderer
+
+    if isinstance(request, InlineCoaRenderRequest):
+        payload = request.payload
+        filename = f"coa_{payload.batch.batch_no.replace('/', '_')}_{payload.revision_no}.docx"
+        try:
+            output_path = DocumentRenderer().render_coa(payload, filename)
+        except Exception as e:
+            raise HTTPException(500, str(e)) from e
+        return FileResponse(
+            str(output_path),
+            media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            filename=filename,
+        )
+
+    if isinstance(request, InlineAwsRenderRequest):
+        payload = request.payload
+        filename = f"aws_{payload.batch.batch_no.replace('/', '_')}_{payload.revision_no}.docx"
+        try:
+            output_path = DocumentRenderer().render_aws(payload, filename)
+        except Exception as e:
+            raise HTTPException(500, str(e)) from e
+        return FileResponse(
+            str(output_path),
+            media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            filename=filename,
+        )
+
+    raise HTTPException(400, f"Unsupported document_type: {request.document_type}")
 
 
 # ── Document record endpoints ─────────────────────────────────────────────────

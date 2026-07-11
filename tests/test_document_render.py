@@ -9,6 +9,7 @@ from docx import Document
 from app.core.constants import DocumentType
 from app.document_engine.renderer import DocumentRenderer
 from app.schemas.product import ProductConfig
+from tests.conftest import load_aws_fixture, load_coa_fixture
 
 
 @pytest.fixture
@@ -53,3 +54,27 @@ def test_programmatic_render(common_kwargs, doc_type, config_name, filename, ext
     assert len(doc.sections) >= 1
     assert doc.sections[0].header.tables
     assert doc.sections[0].footer.tables
+
+
+def test_coa_render(common_kwargs):
+    renderer = DocumentRenderer()
+    payload = load_coa_fixture("glycine_coa_gcn010226.json")
+    path = renderer.render_coa(payload, "test_coa.docx")
+    doc = Document(path)
+    assert len(doc.sections) >= 1
+    assert doc.sections[0].header.tables
+    assert doc.sections[0].footer.tables
+    body_tables = [t for t in doc.tables]
+    assert len(body_tables) >= 1
+
+
+def test_aws_render(common_kwargs):
+    renderer = DocumentRenderer()
+    payload = load_aws_fixture("glycine_aws_gcn010226.json")
+    path = renderer.render_aws(payload, "test_aws.docx")
+    doc = Document(path)
+    assert len(doc.sections) >= 1
+    assert doc.sections[0].header.tables
+    assert doc.sections[0].footer.tables
+    body_tables = [t for t in doc.tables]
+    assert len(body_tables) >= 3

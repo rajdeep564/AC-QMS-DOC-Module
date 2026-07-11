@@ -6,6 +6,7 @@ from typing import Any
 
 from app.core.config import get_settings
 from app.core.constants import DOCUMENT_NUMBER_PREFIX, DocumentType
+from app.document_engine.sop_style import get_document_label, get_document_type_label
 from app.document_engine.section_numbering import number_sop_sections, number_tests
 from app.schemas.product import ProductConfig
 
@@ -54,21 +55,27 @@ def build_document_context(
             document_no = f"{document_no} ({reference})"
 
     doc_no_labels = {
-        DocumentType.MOA: "MOA NO.",
-        DocumentType.PROTOCOL: "PROTOCOL NO.",
-        DocumentType.SOP: "SOP NO.",
-        DocumentType.ANNEXURE: "ANNEXURE NO.",
-        DocumentType.SPECIFICATION: "SPECIFICATION NO.",
-        DocumentType.STANDARD_FORMAT: "FORMAT NO.",
+        dt: get_document_label(dt)
+        for dt in (
+            DocumentType.MOA,
+            DocumentType.PROTOCOL,
+            DocumentType.SOP,
+            DocumentType.ANNEXURE,
+            DocumentType.SPECIFICATION,
+            DocumentType.STANDARD_FORMAT,
+        )
     }
 
     doc_type_labels = {
-        DocumentType.MOA: "METHOD OF ANALYSIS",
-        DocumentType.PROTOCOL: "ANALYSIS PROTOCOL",
-        DocumentType.SOP: "STANDARD OPERATING PROCEDURE",
-        DocumentType.ANNEXURE: "ANNEXURE",
-        DocumentType.SPECIFICATION: "PRODUCT SPECIFICATION",
-        DocumentType.STANDARD_FORMAT: "STANDARD FORMAT",
+        dt: get_document_type_label(dt)
+        for dt in (
+            DocumentType.MOA,
+            DocumentType.PROTOCOL,
+            DocumentType.SOP,
+            DocumentType.ANNEXURE,
+            DocumentType.SPECIFICATION,
+            DocumentType.STANDARD_FORMAT,
+        )
     }
 
     tests_raw = config.get("tests", [])
