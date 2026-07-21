@@ -1,59 +1,155 @@
 # AC-QMS-DOC-Module
 
-Pharmaceutical QMS document generation platform — reusable Python service for generating MOA, protocols, SOPs, annexures, and product specifications from JSON configuration.
+Pharmaceutical QMS document generation platform — reusable Python FastAPI service that renders SPEC, MOA, AWS, and COA (DOCX/PDF) for the AC-QMS API Gateway.
 
-**Audits:** [docs/audits/](docs/audits/)
+**Audits:** [docs/audits/](docs/audits/)  
+**Gateway contract:** see [`AC-QMS-API-Gateway/SOP_CONTRACT.md`](../AC-QMS-API-Gateway/SOP_CONTRACT.md)
 
 ## Features
 
-- **Document types**: MOA, Analysis Protocol, SOP, Annexure, Product Specification
+- **Document types**: MOA, Analysis Protocol, SOP, Annexure, Product Specification, AWS, COA
 - **Product-agnostic**: One set of base templates (`base_moa.docx`, `base_protocol.docx`, etc.)
 - **JSON-driven**: Products, tests, acceptance criteria, and SOP sections from configuration
 - **SOP-compliant layout**: A4, Times New Roman 12pt, 1" margins, page borders, universal header/footer
 - **Auto section numbering**: 1.0 → 1.1 → 1.1.1 → 2.0
 - **Validation engine**: PASS/FAIL from machine-readable acceptance criteria
 - **PDF export**: DOCX → LibreOffice headless → PDF (swappable service layer)
-- **FastAPI REST API**: Product import, batch tracking, document generation
+- **FastAPI REST API**: Stateless `/generate`, `/render`, `/convert/pdf` for the Gateway; optional product/batch DB routes
 
-## Quick Start
+---
 
-### 1. Install dependencies
+## How to run
 
-**Requires Python 3.12 or 3.13** (not 3.15 beta — many packages lack pre-built wheels).
+### Prerequisites
+
+- **Python 3.11–3.13** (not 3.15 beta — many packages lack wheels)
+- Optional: [LibreOffice](https://www.libreoffice.org/) for PDF conversion
+- For full AC-QMS stack: API Gateway on `:4000` with matching `DOC_MODULE_API_KEY`
+
+### 1. Open this repo
+
+Work from the **module root** (`AC-QMS-DOC-Module/`), not a nested `sop/` folder.
 
 ```bash
-cd sop
+cd AC-QMS-DOC-Module
+```
+
+### 2. Create a virtualenv and install dependencies
+
+**Windows (PowerShell):**
+
+```powershell
 py -3.13 -m venv .venv
-.venv\Scripts\activate        # Windows
+.\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 ```
 
-For PostgreSQL production, also run: `pip install -r requirements-postgres.txt`
+**macOS / Linux:**
 
-### 2. Build base templates
+```bash
+python3.13 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+For PostgreSQL instead of the default SQLite DB:
+
+```bash
+pip install -r requirements-postgres.txt
+```
+
+### 3. Configure environment
+
+```powershell
+copy .env.example .env   # Windows
+# cp .env.example .env   # macOS / Linux
+```
+
+Edit `.env` as needed:
+
+| Variable | Purpose |
+|----------|---------|
+| `API_KEY` | Shared secret; Gateway sends it as `X-API-Key`. Must match Gateway `DOC_MODULE_API_KEY` |
+| `LIBREOFFICE_PATH` | Path to `soffice` if PDF conversion is required |
+| `DATABASE_URL` | Optional Postgres URL; omit to use local SQLite |
+
+Example (dev, matches Gateway `.env.example`):
+
+```
+API_KEY=change-me-shared-secret
+DEBUG=true
+# LIBREOFFICE_PATH=C:\Program Files\LibreOffice\program\soffice.exe
+```
+
+### 4. (First time) Build templates and seed local DB
+
+Only needed once (or after template changes):
 
 ```bash
 python scripts/build_templates.py
-```
-
-### 3. Initialize database and import products
-
-```bash
 python scripts/init_db.py
 ```
 
-### 4. Generate example documents
+Optional smoke generate into `generated/`:
 
 ```bash
 python scripts/generate_example.py
 ```
 
-Output appears in `generated/`.
+### 5. Start the API server
 
-### 5. Start API server
+From the module root, with the venv **activated**:
 
 ```bash
-uvicorn app.main:app --reload --app-dir .
+uvicorn app.main:app --reload --app-dir . --host 127.0.0.1 --port 8000
+```
+
+You should see uvicorn listening on **http://127.0.0.1:8000**.
+
+### 6. Verify it is up
+
+```bash
+curl http://127.0.0.1:8000/health
+```
+
+Expected:
+
+```json
+{ "status": "ok", "app": "Pharmaceutical QMS Document Platform" }
+```
+
+- Swagger UI: http://127.0.0.1:8000/docs  
+- Routes used by the Gateway (`/generate`, `/render`, `/convert/pdf`) require header: `X-API-Key: <API_KEY>`
+
+### Run alongside the API Gateway
+
+1. Start this DOC-Module on **:8000** (steps above).
+2. In `AC-QMS-API-Gateway/.env` set:
+
+```
+DOC_MODULE_URL=http://localhost:8000
+DOC_MODULE_API_KEY=change-me-shared-secret
+```
+
+(`DOC_MODULE_API_KEY` must equal this service’s `API_KEY`.)
+
+3. Start the Gateway (`npm run dev` in `AC-QMS-API-Gateway`). SPEC/MOA/AWS/COA renders will call this service.
+
+If LibreOffice is not installed, set Gateway `DOC_MODULE_PDF_OPTIONAL=true` so DOCX-only success is accepted.
+
+---
+
+## Quick Start (short)
+
+```powershell
+cd AC-QMS-DOC-Module
+py -3.13 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+copy .env.example .env
+python scripts/build_templates.py
+python scripts/init_db.py
+uvicorn app.main:app --reload --app-dir . --host 127.0.0.1 --port 8000
 ```
 
 Open http://127.0.0.1:8000/docs for Swagger UI.
@@ -62,11 +158,15 @@ Open http://127.0.0.1:8000/docs for Swagger UI.
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
+| GET | `/health` | Liveness (no auth) |
+| POST | `/generate` | Inline SPEC/MOA/… generate (Gateway; requires `X-API-Key`) |
+| POST | `/render` | Batch AWS/COA render (Gateway; requires `X-API-Key`) |
+| POST | `/convert/pdf` | DOCX → PDF (Gateway; requires `X-API-Key`) |
 | POST | `/products` | Create product from JSON body |
 | POST | `/products/import` | Import product JSON file |
 | GET | `/products` | List products |
 | POST | `/batches` | Create batch record |
-| POST | `/moa/generate` | Generate MOA document |
+| POST | `/moa/generate` | Generate MOA document (DB-backed) |
 | POST | `/protocols/generate` | Generate Analysis Protocol |
 | POST | `/sop/generate` | Generate SOP |
 | POST | `/annexure/generate` | Generate Annexure |

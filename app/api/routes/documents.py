@@ -1,7 +1,8 @@
+import tempfile
 from pathlib import Path
 
-from fastapi import APIRouter, Depends, HTTPException
-from fastapi.responses import FileResponse
+from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
+from fastapi.responses import FileResponse, Response
 from sqlalchemy.orm import Session
 
 from app.api.deps import verify_api_key
@@ -10,6 +11,7 @@ from app.database.session import get_db
 from app.schemas.document import DocumentGenerateRequest, DocumentResponse, InlineGenerateRequest
 from app.schemas.render_request import InlineAwsRenderRequest, InlineCoaRenderRequest, RenderRequest
 from app.services.document_service import DocumentService
+from app.services.pdf_service import PDFService
 
 router = APIRouter(tags=["documents"], dependencies=[Depends(verify_api_key)])
 
@@ -167,6 +169,49 @@ def render_document(request: RenderRequest):
         )
 
     raise HTTPException(400, f"Unsupported document_type: {request.document_type}")
+
+
+# ── Inline DOCX → PDF (no DB document row required) ───────────────────────────
+
+@router.post("/convert/pdf", summary="Convert an uploaded DOCX to PDF via LibreOffice")
+async def convert_docx_to_pdf(file: UploadFile = File(...)):
+    """
+    Accept a .docx upload and return PDF bytes.
+    Used by the API Gateway after POST /generate or POST /render (Epic 21).
+    Requires LibreOffice (soffice) on the host.
+    """
+    filename = file.filename or "document.docx"
+    if not filename.lower().endswith(".docx"):
+        raise HTTPException(400, "Only .docx uploads are supported")
+
+    raw = await file.read()
+    if not raw:
+        raise HTTPException(400, "Empty upload")
+
+    with tempfile.TemporaryDirectory(prefix="acqms-pdf-") as tmp:
+        tmp_dir = Path(tmp)
+        docx_path = tmp_dir / "input.docx"
+        pdf_path = tmp_dir / "output.pdf"
+        docx_path.write_bytes(raw)
+
+        try:
+            PDFService().generate_pdf(docx_path, pdf_path)
+        except FileNotFoundError as e:
+            raise HTTPException(500, str(e)) from e
+        except RuntimeError as e:
+            raise HTTPException(500, str(e)) from e
+
+        if not pdf_path.exists():
+            raise HTTPException(500, "PDF was not created")
+
+        pdf_bytes = pdf_path.read_bytes()
+
+    out_name = Path(filename).stem + ".pdf"
+    return Response(
+        content=pdf_bytes,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f'attachment; filename="{out_name}"'},
+    )
 
 
 # ── Document record endpoints ─────────────────────────────────────────────────
