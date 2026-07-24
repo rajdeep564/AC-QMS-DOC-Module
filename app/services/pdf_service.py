@@ -1,5 +1,7 @@
 """PDF generation via LibreOffice headless — swappable service layer."""
 
+from __future__ import annotations
+
 import logging
 import shutil
 import subprocess

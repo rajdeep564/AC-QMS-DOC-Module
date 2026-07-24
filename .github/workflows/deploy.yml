@@ -1,0 +1,53 @@
+name: CI/CD Pipeline - DOC Module
+
+on:
+  push:
+    branches:
+      - staging
+  pull_request:
+    branches:
+      - staging
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          if [ -f "requirements-postgres.txt" ]; then
+            pip install -r requirements-postgres.txt
+          fi
+
+      - name: Run Tests (if configured)
+        run: |
+          if [ -d "tests" ] && command -v pytest >/dev/null 2>&1; then
+            pytest
+          else
+            echo "Skipping pytest."
+          fi
+
+  deploy:
+    needs: build-and-test
+    if: github.ref == 'refs/heads/staging' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger Render Deploy Hook
+        run: |
+          if [ -n "${{ secrets.RENDER_DOC_MODULE_DEPLOY_HOOK }}" ]; then
+            curl -X POST "${{ secrets.RENDER_DOC_MODULE_DEPLOY_HOOK }}"
+          else
+            echo "RENDER_DOC_MODULE_DEPLOY_HOOK secret is not set. Skipping deploy hook call."
+          fi
